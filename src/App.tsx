@@ -1,10 +1,20 @@
-import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import LoginPage from "@/pages/Auth/LoginPage/LoginPage";
+import DashboardPage from "@/pages/DashboardPage/DashboardPage";
+
+import AppLayout from "@/components/Layout/AppLayout/AppLayout";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello React</h1>
-    </div>
+    <>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<DashboardPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
