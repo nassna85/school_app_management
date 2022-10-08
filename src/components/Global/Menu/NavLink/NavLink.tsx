@@ -5,9 +5,9 @@ import { FC } from "react";
 
 const NavLink: FC<INavLink> = ({ path, name, children }) => {
   return (
-    <li className="text-white flex items-center mb-2">
+    <li className="text-gray-300 flex items-center mb-3">
       {children}
-      <Link className="text-white text-sm pl-1" to={path}>
+      <Link className="text-sm pl-1" to={path}>
         {name}
       </Link>
     </li>

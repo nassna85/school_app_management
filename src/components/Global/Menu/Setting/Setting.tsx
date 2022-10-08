@@ -1,4 +1,4 @@
-import Divider from "@/components/Global/Divider/Divider";
+import Divider from "@/components/Global/UI/Divider/Divider";
 
 const Setting = () => {
   return (

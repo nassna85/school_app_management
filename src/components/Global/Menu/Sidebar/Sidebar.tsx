@@ -1,6 +1,6 @@
-import Logo from "@/components/Global/Logo/Logo";
-import Nav from "@/components/Global/Nav/Nav";
-import Setting from "@/components/Global/Setting/Setting";
+import Logo from "@/components/Global/Menu/Logo/Logo";
+import Nav from "@/components/Global/Menu/Nav/Nav";
+import Setting from "@/components/Global/Menu/Setting/Setting";
 
 const Sidebar = () => {
   return (

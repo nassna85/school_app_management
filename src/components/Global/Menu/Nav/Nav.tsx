@@ -1,7 +1,7 @@
 import { data } from "./Nav.data";
 
-import Divider from "@/components/Global/Divider/Divider";
-import NavLink from "@/components/Global/NavLink/NavLink";
+import Divider from "@/components/Global/UI/Divider/Divider";
+import NavLink from "@/components/Global/Menu/NavLink/NavLink";
 
 const Nav = () => {
   return (

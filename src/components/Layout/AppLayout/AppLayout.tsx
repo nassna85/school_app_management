@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 
-import Sidebar from "@/components/Global/Sidebar/Sidebar";
+import Sidebar from "@/components/Global/Menu/Sidebar/Sidebar";
 
 const AppLayout: FC = () => {
   return (
