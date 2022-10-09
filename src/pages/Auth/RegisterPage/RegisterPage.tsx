@@ -16,7 +16,7 @@ type errorObject = {
 const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user, isLoading, isError, isSuccess, errors } = useAppSelector(
+  const { isLoading, isError, isSuccess, errors } = useAppSelector(
     (state) => state.auth
   );
 
@@ -28,7 +28,6 @@ const RegisterPage = () => {
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    console.log(registerData);
     e.preventDefault();
     dispatch(register(registerData));
   };
@@ -43,11 +42,11 @@ const RegisterPage = () => {
       setError(errorsFormat);
       return;
     }
-    if (isSuccess || user) {
+    if (isSuccess) {
+      dispatch(reset());
       return navigate("/login");
     }
-    dispatch(reset());
-  }, [user, isError, isSuccess, errors]);
+  }, [isError, isSuccess, errors]);
   return (
     <div className="flex justify-center items-center h-screen">
       <form

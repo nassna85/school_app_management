@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import IAuth from "@/interfaces/IAuth";
 import IUserRegister from "@/interfaces/IUserRegister";
+import ILoginCredentials from "@/interfaces/ILoginCredentials";
 
 import AuthService from "@/features/auth/authService";
 
@@ -12,6 +13,7 @@ const initialState: IAuth = {
   isLoading: false,
   isSuccess: false,
   errors: null,
+  errorMessage: "",
 };
 
 // Register user
@@ -32,6 +34,24 @@ export const register = createAsyncThunk(
   }
 );
 
+// Login user
+export const login = createAsyncThunk(
+  "auth/login",
+  async (credentials: ILoginCredentials, thunkAPI) => {
+    try {
+      return await AuthService.login(credentials);
+    } catch (e) {
+      let message;
+      if (axios.isAxiosError(e)) {
+        message = e?.response?.data?.message;
+      } else {
+        message = "Something wrong";
+      }
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -42,24 +62,15 @@ export const authSlice = createSlice({
       state.isError = false;
       state.errors = null;
     },
-    login: (state, { payload }) => {
-      return {
-        ...state,
-        id: payload.user.id,
-        email: payload.user.email,
-        roles: payload.user.roles,
-      };
-    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(register.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
@@ -67,10 +78,26 @@ export const authSlice = createSlice({
         // @ts-ignore
         state.errors = action.payload;
         state.user = null;
+      })
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        // @ts-ignore
+        state.errorMessage = action.payload;
+        state.user = null;
       });
   },
 });
 
-export const { reset, login } = authSlice.actions;
+export const { reset } = authSlice.actions;
 
 export default authSlice.reducer;
