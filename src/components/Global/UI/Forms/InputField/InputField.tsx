@@ -24,7 +24,7 @@ const InputField: FC<InputFieldProps> = ({
   id,
   name,
   type,
-  isRequired = false,
+  isRequired = true,
   placeholder,
   customClass,
 }) => {

@@ -5,9 +5,9 @@ import IProtectedRoute from "@/interfaces/IProtectedRoute";
 import { useAppSelector } from "@/app/hooks";
 
 const ProtectedRoute: FC<IProtectedRoute> = ({ children }) => {
-  const user = useAppSelector((state) => state.auth);
+  const auth = useAppSelector((state) => state.auth);
 
-  if (!user?.id) return <Navigate to="/login" replace />;
+  if (!auth?.user?.id) return <Navigate to="/login" replace />;
   return children;
 };
 

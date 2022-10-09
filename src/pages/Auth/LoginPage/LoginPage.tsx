@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
+
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
+import Button from "@/components/Global/UI/Buttons/Button";
 
 interface credentialsState {
   email?: string;
@@ -14,7 +16,7 @@ const LoginPage = () => {
   };
   return (
     <div className="flex justify-center items-center h-screen">
-      <form className="bg-gray-200 h-auto w-11/12 md:w-2/5 lg:w-80 p-4 rounded">
+      <form className="bg-gray-200 h-auto w-11/12 md:w-2/5 lg:w-96 px-4 py-6 rounded">
         <h1 className="text-2xl font-bold text-center">Login</h1>
         <InputField
           handleChange={handleChange}
@@ -37,6 +39,13 @@ const LoginPage = () => {
           type="password"
           isRequired={true}
           placeholder="Password"
+        />
+        <Button
+          label="Login"
+          isLoading={false}
+          type="submit"
+          variant="bg-pink-700"
+          disabled={false}
         />
       </form>
     </div>
