@@ -7,7 +7,7 @@ const AppLayout: FC = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <main className="pl-5 grow">
+      <main className="p-5 grow bg-gray-100">
         <Outlet />
       </main>
     </div>
