@@ -1,10 +1,10 @@
 export interface IClassroom {
-  id: string;
+  _id: string;
   name: string;
   capacity: number;
 }
 
 export interface IClassrooms {
-  id: string;
+  _id: string;
   name: string;
 }

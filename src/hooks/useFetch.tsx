@@ -3,9 +3,10 @@ import { useCallback, useState } from "react";
 
 import { fetchAjax } from "@/utils/fetchAjax";
 
-const useFetch = (url: string) => {
+const useFetch = (url: string, isSingleItem = false) => {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
+  const [item, setItem] = useState<object | any>({});
   const [error, setError] = useState("");
 
   const load = useCallback(async () => {
@@ -13,7 +14,11 @@ const useFetch = (url: string) => {
       setLoading(true);
       const res = await fetchAjax(url);
       if (res?.data?.status === "success") {
-        setItems(res?.data?.data);
+        if (isSingleItem) {
+          setItem(res?.data?.data);
+        } else {
+          setItems(res?.data?.data);
+        }
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -33,6 +38,7 @@ const useFetch = (url: string) => {
     items,
     error,
     load,
+    item,
   };
 };
 
