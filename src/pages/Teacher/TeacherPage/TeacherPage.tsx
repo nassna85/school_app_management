@@ -18,10 +18,10 @@ const TeacherPage = () => {
   return loading ? (
     <p>Loading...</p>
   ) : (
-    <div>
+    <>
       <h1 className="text-2xl font-bold">List of teachers</h1>
-      <TeacherTable />
-    </div>
+      <TeacherTable teachers={teachers} />
+    </>
   );
 };
 

@@ -18,7 +18,7 @@ const TeacherProvider: FC<TeacherProviderProps> = ({ children }) => {
 
   const updateTeacher = (id: string, teacherUpdated: ITeacher) => {
     const teacherUpd = teachers.map((teacher) => {
-      if (teacher.id === id) {
+      if (teacher._id === id) {
         return { ...teacher, ...teacherUpdated };
       }
       return teacher;
