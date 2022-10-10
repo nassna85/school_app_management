@@ -11,7 +11,6 @@ export const TeacherContext = createContext<ITeachersContext | null>(null);
 
 const TeacherProvider: FC<TeacherProviderProps> = ({ children }) => {
   const [teachers, setTeachers] = useState<ITeacher[]>([]);
-  console.log(teachers);
 
   const saveTeacher = (teacher: ITeacher) => {
     setTeachers([teacher, ...teachers]);
@@ -29,7 +28,6 @@ const TeacherProvider: FC<TeacherProviderProps> = ({ children }) => {
   };
 
   const loadTeachers = (teachers: ITeacher[]) => {
-    console.log("from loadTeachers", teachers);
     setTeachers(teachers);
   };
 

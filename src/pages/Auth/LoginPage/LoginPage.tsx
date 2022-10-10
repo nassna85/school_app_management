@@ -8,6 +8,7 @@ import Alert from "@/components/Global/UI/Alert/Alert";
 import { useAppSelector, useAppDispatch } from "@/app/hooks";
 import ILoginCredentials from "@/interfaces/ILoginCredentials";
 import { login, reset } from "@/features/auth/authSlice";
+import { setAuthorizationAxios } from "@/utils/axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const LoginPage = () => {
       return;
     }
     if (isSuccess) {
+      setAuthorizationAxios(user?.token);
       dispatch(reset());
       return navigate("/");
     }
