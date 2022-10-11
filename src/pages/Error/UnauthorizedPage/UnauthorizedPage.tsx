@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@/app/hooks";
 import { logout } from "@/features/auth/authSlice";
-import { useEffect } from "react";
+import { resetAuthorizationAxios } from "@/utils/axios";
 
 const UnauthorizedPage = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const UnauthorizedPage = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(logout());
+      resetAuthorizationAxios();
       return navigate("/login");
     }, 5000);
   }, [dispatch, navigate]);

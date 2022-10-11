@@ -1,13 +1,19 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { fetchAjax } from "@/utils/fetchAjax";
+import { useAppDispatch } from "@/app/hooks";
+import { add } from "@/features/alert/alertSlice";
 
 const useFetch = (url: string, isSingleItem = false) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [item, setItem] = useState<object | any>({});
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const load = useCallback(async () => {
     try {
@@ -22,11 +28,29 @@ const useFetch = (url: string, isSingleItem = false) => {
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        console.log("From useFetch Hooks", e);
-        setError(e?.response?.data?.message);
+        dispatch(
+          add({
+            type: "error",
+            message:
+              e?.response?.data?.message ||
+              e?.response?.statusText ||
+              "Something wrong",
+          })
+        );
+        if (e?.response?.status === 401) {
+          navigate("/unauthorized");
+          return;
+        }
+        if (e?.response?.status === 403) {
+          navigate("/access-denied");
+          return;
+        }
+        if (e?.response?.status === 404) {
+          navigate("/not-found");
+          return;
+        }
       } else {
-        // TODO Notification state global
-        setError("Something wrong");
+        dispatch(add({ type: "error", message: "Something wrong" }));
       }
     } finally {
       setLoading(false);
@@ -36,7 +60,6 @@ const useFetch = (url: string, isSingleItem = false) => {
   return {
     loading,
     items,
-    error,
     load,
     item,
   };

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const setAuthorizationAxios = (token: string) => {
+export const setAuthorizationAxios = (token: string | undefined) => {
   return (axios.defaults.headers.common["Authorization"] = `Bearer ${token}`);
 };
 

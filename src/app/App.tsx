@@ -6,10 +6,12 @@ import DashboardPage from "@/pages/DashboardPage/DashboardPage";
 import TeacherPage from "@/pages/Teacher/TeacherPage/TeacherPage";
 import AccessDeniedPage from "@/pages/Error/AccessDeniedPage/AccessDeniedPage";
 import UnauthorizedPage from "@/pages/Error/UnauthorizedPage/UnauthorizedPage";
+import NotFound from "@/pages/Error/NotFound/NotFound";
 
 import AppLayout from "@/components/Layout/AppLayout/AppLayout";
 import ProtectedRoute from "@/components/Layout/ProtectedRoute/ProtectedRoute";
 import TeacherProvider from "@/context/teacherContext";
+import Notification from "@/components/Global/UI/Notification/Notification";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/access-denied" element={<AccessDeniedPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="/not-found" element={<NotFound />} />
         <Route element={<AppLayout />}>
           <Route
             path="/"
@@ -40,6 +43,7 @@ function App() {
           />
         </Route>
       </Routes>
+      <Notification />
     </>
   );
 }

@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import authReducer from "@/features/auth/authSlice";
+import alertReducer from "@/features/alert/alertSlice";
 
 const authPersistConfig = {
   key: "auth",
@@ -20,8 +21,9 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    //auth: authReducer,
+    // @ts-ignore
     auth: persistReducer(authPersistConfig, authReducer),
+    alert: alertReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -29,6 +31,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export const persistor = persistStore(store);
