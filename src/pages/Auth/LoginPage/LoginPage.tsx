@@ -8,7 +8,7 @@ import Alert from "@/components/Global/UI/Alert/Alert";
 import { useAppSelector, useAppDispatch } from "@/app/hooks";
 import ILoginCredentials from "@/interfaces/ILoginCredentials";
 import { login, reset } from "@/features/auth/authSlice";
-import { setAuthorizationAxios } from "@/utils/axios";
+import { add } from "@/features/alert/alertSlice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -35,9 +35,12 @@ const LoginPage = () => {
       return;
     }
     if (isSuccess) {
-      setAuthorizationAxios(user?.token);
       dispatch(reset());
-      return navigate("/");
+      dispatch(
+        add({ type: "success", message: "Vous êtes désormais connecté(e)" })
+      );
+      //return navigate("/");
+      window.location.href = "/";
     }
   }, [isSuccess, isError, user, errorMessage]);
   return (
