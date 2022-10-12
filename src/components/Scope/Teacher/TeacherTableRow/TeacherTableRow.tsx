@@ -135,7 +135,7 @@ const TeacherTableRow: FC<TeacherTableItemProps> = ({ teacher }) => {
             {item?.firstName} {item?.lastName}
           </b>
         </p>
-        <TeacherEditForm teacher={item} />
+        <TeacherEditForm teacher={item} onCloseDrawer={closeDrawerHandler} />
       </Drawer>
     </>
   );

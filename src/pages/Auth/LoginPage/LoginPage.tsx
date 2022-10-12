@@ -39,7 +39,8 @@ const LoginPage = () => {
       dispatch(
         add({ type: "success", message: "Vous êtes désormais connecté(e)" })
       );
-      return navigate("/");
+      //return navigate("/");
+      window.location.href = "/";
     }
   }, [isSuccess, isError, user, errorMessage]);
   return (

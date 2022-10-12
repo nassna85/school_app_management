@@ -23,7 +23,6 @@ const TeacherProvider: FC<TeacherProviderProps> = ({ children }) => {
       }
       return teacher;
     });
-
     setTeachers(teacherUpd);
   };
 
