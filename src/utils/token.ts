@@ -5,6 +5,10 @@
  */
 export const getTokenFromLocalstorage = (storageKey: string) => {
   const persistAuth = localStorage.getItem(storageKey) || "";
-  const parsedPersistAuth = JSON.parse(persistAuth);
-  return JSON.parse(parsedPersistAuth?.user)?.token || "";
+  if (persistAuth) {
+    const parsedPersistAuth = JSON.parse(persistAuth);
+    return JSON.parse(parsedPersistAuth?.user)?.token || "";
+  } else {
+    return "";
+  }
 };

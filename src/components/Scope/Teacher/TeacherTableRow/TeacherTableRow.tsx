@@ -7,6 +7,8 @@ import Badge from "@/components/Global/UI/Badge/Badge";
 import BaseModal from "@/components/Global/UI/Modals/BaseModal/BaseModal";
 import useFetch from "@/hooks/useFetch";
 import { IClassrooms } from "@/interfaces/IClassroom";
+import Drawer from "@/components/Global/UI/Drawer/Drawer";
+import TeacherEditForm from "@/components/Scope/Teacher/TeacherEditForm/TeacherEditForm";
 
 type TeacherTableItemProps = {
   teacher: ITeacher;
@@ -15,14 +17,24 @@ type TeacherTableItemProps = {
 const TeacherTableRow: FC<TeacherTableItemProps> = ({ teacher }) => {
   const { loading, load, item } = useFetch(`/teachers/${teacher._id}`, true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openModalHandler = () => {
     setIsModalOpen(true);
     load();
   };
 
+  const openDrawerHandler = () => {
+    setIsDrawerOpen(true);
+    load();
+  };
+
   const closeModalHandler = () => {
     setIsModalOpen(false);
+  };
+
+  const closeDrawerHandler = () => {
+    setIsDrawerOpen(false);
   };
   return (
     <>
@@ -58,7 +70,7 @@ const TeacherTableRow: FC<TeacherTableItemProps> = ({ teacher }) => {
             <ActionButton
               type="button"
               variant="text-teal-500"
-              onClick={() => null}
+              onClick={openDrawerHandler}
             >
               <BiPencil />
             </ActionButton>
@@ -111,6 +123,20 @@ const TeacherTableRow: FC<TeacherTableItemProps> = ({ teacher }) => {
           ))}
         </ul>
       </BaseModal>
+
+      <Drawer
+        isLoading={loading}
+        isOpen={isDrawerOpen}
+        onCloseDrawer={closeDrawerHandler}
+      >
+        <p>
+          Edit teacher{" "}
+          <b>
+            {item?.firstName} {item?.lastName}
+          </b>
+        </p>
+        <TeacherEditForm teacher={item} />
+      </Drawer>
     </>
   );
 };
