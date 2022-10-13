@@ -9,10 +9,16 @@ import SpinnerLoader from "@/components/Global/UI/Loaders/SpinnerLoader/SpinnerL
 
 const AppLayout: FC = () => {
   const { me } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
+  // @ts-ignore
   useEffect(() => {
-    dispatch(getMe());
+    if (user === null) {
+      window.location.href = "/login";
+    } else {
+      dispatch(getMe());
+    }
   }, []);
   return !me?._id ? (
     <SpinnerLoader />
