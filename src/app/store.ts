@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 
 import authReducer from "@/features/auth/authSlice";
 import alertReducer from "@/features/alert/alertSlice";
+import userReducer from "@/features/user/userSlice";
 
 const authPersistConfig = {
   key: "auth",
@@ -24,6 +25,7 @@ export const store = configureStore({
     // @ts-ignore
     auth: persistReducer(authPersistConfig, authReducer),
     alert: alertReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

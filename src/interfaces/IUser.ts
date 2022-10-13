@@ -1,5 +1,12 @@
 export default interface IUser {
-  id: number | null;
-  email: string | null;
-  roles?: [];
+  me: {
+    _id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: string[];
+  };
+  isError: boolean;
+  isLoading: boolean;
+  errorMessage: string;
 }
