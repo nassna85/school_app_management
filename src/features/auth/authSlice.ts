@@ -5,7 +5,7 @@ import IAuth from "@/interfaces/IAuth";
 import IUserRegister from "@/interfaces/IUserRegister";
 import ILoginCredentials from "@/interfaces/ILoginCredentials";
 
-import AuthService from "@/features/auth/authService";
+import AuthService from "@/features/auth/AuthService";
 
 const initialState: IAuth = {
   user: null,
