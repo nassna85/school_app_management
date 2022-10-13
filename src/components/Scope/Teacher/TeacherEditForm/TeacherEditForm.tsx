@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 
 import { ITeacher } from "@/interfaces/ITeacher";
 import usePostFetch from "@/hooks/usePostFetch";
