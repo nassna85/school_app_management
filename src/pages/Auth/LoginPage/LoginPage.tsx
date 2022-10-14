@@ -25,6 +25,7 @@ const LoginPage = () => {
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    setError("");
     e.preventDefault();
     dispatch(login(credentials));
   };

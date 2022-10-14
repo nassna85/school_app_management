@@ -1,7 +1,7 @@
 import { IClassrooms } from "@/interfaces/IClassroom";
 
 export interface ITeacher {
-  _id: string;
+  _id?: string;
   firstName: string;
   lastName: string;
   email: string;

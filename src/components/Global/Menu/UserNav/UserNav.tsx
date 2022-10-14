@@ -5,6 +5,7 @@ import { resetAuthorizationAxios } from "@/utils/axios";
 import { logout } from "@/features/auth/authSlice";
 
 import Button from "@/components/Global/UI/Buttons/Button";
+// import { persistor } from "@/app/store";
 
 const UserNav = () => {
   const { me } = useAppSelector((state) => state.user);
@@ -13,6 +14,10 @@ const UserNav = () => {
   const handleLogout = () => {
     dispatch(logout());
     resetAuthorizationAxios();
+    /*persistor.pause();
+    persistor.flush().then(() => {
+      return persistor.purge();
+    });*/
     window.location.href = "/login";
   };
   return (

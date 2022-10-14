@@ -19,7 +19,7 @@ const AppLayout: FC = () => {
     } else {
       dispatch(getMe());
     }
-  }, []);
+  }, [user]);
   return !me?._id ? (
     <SpinnerLoader />
   ) : (
