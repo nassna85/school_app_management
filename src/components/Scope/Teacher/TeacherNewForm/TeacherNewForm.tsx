@@ -1,14 +1,24 @@
-import { ActionMeta } from "react-select";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
 import Button from "@/components/Global/UI/Buttons/Button/Button";
 import SelectField from "@/components/Global/UI/Forms/SelectField/SelectField";
+import SpinnerLoader from "@/components/Global/UI/Loaders/SpinnerLoader/SpinnerLoader";
+
+import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
 import { OptionsType } from "@/interfaces/ui/ISelectField";
 import { IClassrooms } from "@/interfaces/scope/classroom/IClassroom";
+import useFetch from "@/hooks/useFetch";
+import usePostFetch from "@/hooks/usePostFetch";
 
 const TeacherNewForm = () => {
+  const { loading, load, items: classrooms } = useFetch("classrooms");
+  const { send, loading: postLoading } = usePostFetch("teachers", "POST");
+
+  const [selectOptions, setSelectOptions] = useState<
+    { label: string; value: string }[]
+  >([]);
+
   const [teacher, setTeacher] = useState<ITeacher>({
     firstName: "",
     lastName: "",
@@ -19,17 +29,6 @@ const TeacherNewForm = () => {
     postalCode: "",
     classrooms: [],
   });
-
-  const options = [
-    {
-      value: "blablabla",
-      label: "Première primaire",
-    },
-    {
-      value: "papapapa",
-      label: "Deuxième primaire",
-    },
-  ];
 
   const handleSelectChange = (options: readonly OptionsType[]) => {
     const classrooms: IClassrooms[] = [];
@@ -43,11 +42,24 @@ const TeacherNewForm = () => {
     setTeacher({ ...teacher, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(teacher);
+    await send(teacher);
+    // TODO Update TeacherContext
   };
-  return (
+
+  useEffect(() => {
+    const options: { label: string; value: string }[] = [];
+    load();
+    classrooms.forEach((item) => {
+      // @ts-ignore
+      options.push({ value: item._id, label: item.name });
+    });
+    setSelectOptions(options);
+  }, [classrooms?.length]);
+  return loading ? (
+    <SpinnerLoader />
+  ) : (
     <>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4">
@@ -134,31 +146,19 @@ const TeacherNewForm = () => {
             isRequired={true}
             placeholder="Postal Code"
           />
-          {/* Todo Add select for classrooms */}
           <SelectField
             name="classrooms"
-            options={options}
+            options={selectOptions}
             onChange={handleSelectChange}
             label="Classrooms"
-          />
-          <InputField
-            handleChange={handleChange}
-            value={teacher.country}
-            labelText="Country"
-            labelFor="country"
-            id="country"
-            name="country"
-            type="text"
-            isRequired={true}
-            placeholder="Country"
           />
         </div>
         <Button
           label="Add Teacher"
-          isLoading={false}
+          isLoading={postLoading}
           type="submit"
           variant="primary"
-          disabled={false}
+          disabled={postLoading}
           border="rounded"
         />
       </form>
