@@ -3,7 +3,7 @@ import useTeacher from "@/hooks/useTeacher";
 import { useEffect } from "react";
 import TeacherTable from "@/components/Scope/Teacher/TeacherTable/TeacherTable";
 import SpinnerLoader from "@/components/Global/UI/Loaders/SpinnerLoader/SpinnerLoader";
-import LinkButton from "@/components/Global/UI/Buttons/LinkButton";
+import LinkButton from "@/components/Global/UI/Buttons/LinkButton/LinkButton";
 import Title from "@/components/Global/UI/Title/Title";
 
 const TeacherPage = () => {
@@ -24,7 +24,7 @@ const TeacherPage = () => {
     <>
       <div className="flex justify-between items-center mb-5">
         <Title size="2xl">List of teachers</Title>
-        <LinkButton path="/teachers/new" variant="bg-pink-700">
+        <LinkButton path="/teachers/new" variant="primary" border="rounded">
           Add Teacher
         </LinkButton>
       </div>

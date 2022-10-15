@@ -2,11 +2,11 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
-import Button from "@/components/Global/UI/Buttons/Button";
+import Button from "@/components/Global/UI/Buttons/Button/Button";
 import Alert from "@/components/Global/UI/Alert/Alert";
 
 import { useAppSelector, useAppDispatch } from "@/app/hooks";
-import ILoginCredentials from "@/interfaces/ILoginCredentials";
+import ILoginCredentials from "@/interfaces/scope/auth/ILoginCredentials";
 import { login, reset } from "@/features/auth/authSlice";
 import { add } from "@/features/alert/alertSlice";
 
@@ -78,8 +78,9 @@ const LoginPage = () => {
           label="Login"
           isLoading={isLoading}
           type="submit"
-          variant="bg-pink-700"
+          variant="primary"
           disabled={isLoading}
+          border="rounded"
         />
       </form>
     </div>

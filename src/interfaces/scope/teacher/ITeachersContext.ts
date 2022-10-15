@@ -1,4 +1,4 @@
-import { ITeacher } from "@/interfaces/ITeacher";
+import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
 
 export default interface ITeachersContext {
   teachers: ITeacher[];

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import IAlert from "@/interfaces/IAlert";
+import IAlert from "@/interfaces/ui/IAlert";
 
 const initialState: IAlert = {
   show: false,

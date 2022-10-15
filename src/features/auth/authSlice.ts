@@ -1,9 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import IAuth from "@/interfaces/IAuth";
-import IUserRegister from "@/interfaces/IUserRegister";
-import ILoginCredentials from "@/interfaces/ILoginCredentials";
+import IAuth from "@/interfaces/scope/auth/IAuth";
+import IUserRegister from "@/interfaces/scope/auth/IUserRegister";
+import ILoginCredentials from "@/interfaces/scope/auth/ILoginCredentials";
 
 import AuthService from "@/features/auth/AuthService";
 

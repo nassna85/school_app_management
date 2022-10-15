@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { resetAuthorizationAxios } from "@/utils/axios";
 import { logout } from "@/features/auth/authSlice";
 
-import Button from "@/components/Global/UI/Buttons/Button";
+import Button from "@/components/Global/UI/Buttons/Button/Button";
 // import { persistor } from "@/app/store";
 
 const UserNav = () => {
@@ -39,7 +39,8 @@ const UserNav = () => {
         label="Logout"
         isLoading={false}
         type="button"
-        variant="bg-pink-700"
+        variant="primary"
+        border="rounded"
         disabled={false}
         onClick={handleLogout}
       />

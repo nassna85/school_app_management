@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import IUser from "@/interfaces/IUser";
+import IUser from "@/interfaces/scope/user/IUser";
 
 import UserService from "@/features/user/UserService";
 

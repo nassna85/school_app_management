@@ -1,4 +1,4 @@
-import { IClassrooms } from "@/interfaces/IClassroom";
+import { IClassrooms } from "@/interfaces/scope/classroom/IClassroom";
 
 export interface ITeacher {
   _id?: string;

@@ -1,12 +1,12 @@
 import { FC, useState } from "react";
 import { BiShow, BiPencil, BiTrash } from "react-icons/bi";
 
-import { ITeacher } from "@/interfaces/ITeacher";
-import ActionButton from "@/components/Global/UI/Buttons/ActionButton";
+import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
+import ActionButton from "@/components/Global/UI/Buttons/ActionButton/ActionButton";
 import Badge from "@/components/Global/UI/Badge/Badge";
 import BaseModal from "@/components/Global/UI/Modals/BaseModal/BaseModal";
 import useFetch from "@/hooks/useFetch";
-import { IClassrooms } from "@/interfaces/IClassroom";
+import { IClassrooms } from "@/interfaces/scope/classroom/IClassroom";
 import Drawer from "@/components/Global/UI/Drawer/Drawer";
 import TeacherEditForm from "@/components/Scope/Teacher/TeacherEditForm/TeacherEditForm";
 
@@ -54,7 +54,7 @@ const TeacherTableRow: FC<TeacherTableItemProps> = ({ teacher }) => {
           <span>{teacher.lastName}</span>
         </td>
         <td className="py-3 px-6 text-center">
-          <Badge variant="bg-pink-200" color="text-pink-900">
+          <Badge variant="primary" border="rounded-50">
             {teacher.email}
           </Badge>
         </td>

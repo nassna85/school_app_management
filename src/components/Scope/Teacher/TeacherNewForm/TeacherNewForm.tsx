@@ -1,7 +1,7 @@
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
 import { ChangeEvent, useState } from "react";
-import { ITeacher } from "@/interfaces/ITeacher";
-import Button from "@/components/Global/UI/Buttons/Button";
+import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
+import Button from "@/components/Global/UI/Buttons/Button/Button";
 
 const TeacherNewForm = () => {
   const [teacher, setTeacher] = useState<ITeacher>({
@@ -122,8 +122,9 @@ const TeacherNewForm = () => {
           label="Add Teacher"
           isLoading={false}
           type="submit"
-          variant="bg-pink-700"
+          variant="primary"
           disabled={false}
+          border="rounded"
         />
       </form>
     </>

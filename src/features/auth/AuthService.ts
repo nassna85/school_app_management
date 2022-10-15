@@ -1,6 +1,6 @@
 import { fetchAjax } from "@/utils/fetchAjax";
-import IUserRegister from "@/interfaces/IUserRegister";
-import ILoginCredentials from "@/interfaces/ILoginCredentials";
+import IUserRegister from "@/interfaces/scope/auth/IUserRegister";
+import ILoginCredentials from "@/interfaces/scope/auth/ILoginCredentials";
 import { setAuthorizationAxios } from "@/utils/axios";
 
 class AuthService {
