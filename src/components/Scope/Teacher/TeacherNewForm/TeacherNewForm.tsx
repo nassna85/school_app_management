@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
 import Button from "@/components/Global/UI/Buttons/Button/Button";
@@ -10,10 +11,13 @@ import { OptionsType } from "@/interfaces/ui/ISelectField";
 import { IClassrooms } from "@/interfaces/scope/classroom/IClassroom";
 import useFetch from "@/hooks/useFetch";
 import usePostFetch from "@/hooks/usePostFetch";
+import useTeacher from "@/hooks/useTeacher";
 
 const TeacherNewForm = () => {
+  const navigate = useNavigate();
   const { loading, load, items: classrooms } = useFetch("classrooms");
   const { send, loading: postLoading } = usePostFetch("teachers", "POST");
+  const { saveTeacher } = useTeacher();
 
   const [selectOptions, setSelectOptions] = useState<
     { label: string; value: string }[]
@@ -45,7 +49,8 @@ const TeacherNewForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await send(teacher);
-    // TODO Update TeacherContext
+    saveTeacher(teacher);
+    navigate("/teachers");
   };
 
   useEffect(() => {
