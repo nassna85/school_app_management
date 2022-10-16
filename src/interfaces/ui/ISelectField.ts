@@ -14,4 +14,5 @@ export default interface ISelectField {
   ) => void;
   label: string;
   isMulti?: boolean;
+  error?: string;
 }

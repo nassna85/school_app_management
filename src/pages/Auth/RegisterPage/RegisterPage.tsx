@@ -2,16 +2,13 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import IUserRegister from "@/interfaces/scope/auth/IUserRegister";
+import IErrorsFormatToObject from "@/interfaces/IErrorsFormatToObject";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { register, reset } from "@/features/auth/authSlice";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
 import Button from "@/components/Global/UI/Buttons/Button/Button";
-
-type errorObject = {
-  [key: string]: string;
-};
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -21,7 +18,7 @@ const RegisterPage = () => {
   );
 
   const [registerData, setRegisterData] = useState<IUserRegister>({});
-  const [error, setError] = useState<errorObject>({});
+  const [error, setError] = useState<IErrorsFormatToObject>({});
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
@@ -34,7 +31,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isError) {
-      const errorsFormat: errorObject = {};
+      const errorsFormat: IErrorsFormatToObject = {};
       errors?.forEach((mess: string) => {
         const key = mess.split('"')[1];
         errorsFormat[key] = mess.replace(/["]/g, "");
@@ -62,8 +59,8 @@ const RegisterPage = () => {
           type="text"
           required={true}
           placeholder="First Name"
+          error={error["firstName"]}
         />
-        {error["firstName"] && <p>{error["firstName"]}</p>}
         <InputField
           onChange={handleChange}
           value={registerData.lastName}
@@ -72,6 +69,7 @@ const RegisterPage = () => {
           type="text"
           required={true}
           placeholder="Last Name"
+          error={error["lastName"]}
         />
         <InputField
           onChange={handleChange}
@@ -81,6 +79,7 @@ const RegisterPage = () => {
           type="email"
           required={true}
           placeholder="Email"
+          error={error["email"]}
         />
         <InputField
           onChange={handleChange}
@@ -90,6 +89,7 @@ const RegisterPage = () => {
           type="text"
           required={true}
           placeholder="Company Name"
+          error={error["company"]}
         />
         <InputField
           onChange={handleChange}
@@ -99,6 +99,7 @@ const RegisterPage = () => {
           type="password"
           required={true}
           placeholder="Password"
+          error={error["password"]}
         />
         <Button
           label="Register"

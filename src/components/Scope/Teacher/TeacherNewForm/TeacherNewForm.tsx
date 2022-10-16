@@ -21,6 +21,8 @@ const TeacherNewForm = () => {
     data,
     setData,
     handleChange,
+    errors,
+    isSuccess,
   } = usePostFetch("teachers", "POST");
   const { saveTeacher } = useTeacher();
 
@@ -39,8 +41,6 @@ const TeacherNewForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await send(data);
-    saveTeacher(data);
-    navigate("/teachers");
   };
 
   useEffect(() => {
@@ -52,6 +52,13 @@ const TeacherNewForm = () => {
     });
     setSelectOptions(options);
   }, [classrooms?.length]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      saveTeacher(data);
+      navigate("/teachers");
+    }
+  }, [isSuccess]);
   return loading ? (
     <SpinnerLoader />
   ) : (
@@ -66,6 +73,7 @@ const TeacherNewForm = () => {
             type="text"
             required={true}
             placeholder="First Name"
+            error={errors["firstName"]}
           />
           <InputField
             onChange={handleChange}
@@ -75,6 +83,7 @@ const TeacherNewForm = () => {
             type="text"
             required={true}
             placeholder="Last Name"
+            error={errors["lastName"]}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -86,6 +95,7 @@ const TeacherNewForm = () => {
             type="email"
             required={true}
             placeholder="Email"
+            error={errors["email"]}
           />
           <InputField
             onChange={handleChange}
@@ -95,6 +105,7 @@ const TeacherNewForm = () => {
             type="text"
             required={true}
             placeholder="Street"
+            error={errors["street"]}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -106,6 +117,7 @@ const TeacherNewForm = () => {
             type="text"
             required={true}
             placeholder="City"
+            error={errors["city"]}
           />
           <InputField
             onChange={handleChange}
@@ -115,6 +127,7 @@ const TeacherNewForm = () => {
             type="text"
             required={true}
             placeholder="Country"
+            error={errors["country"]}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -126,12 +139,14 @@ const TeacherNewForm = () => {
             type="text"
             required={true}
             placeholder="Postal Code"
+            error={errors["postalCode"]}
           />
           <SelectField
             name="classrooms"
             options={selectOptions}
             onChange={handleSelectChange}
             label="Classrooms"
+            error={errors["classrooms"]}
           />
         </div>
         <Button
