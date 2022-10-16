@@ -2,16 +2,13 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import IUserRegister from "@/interfaces/scope/auth/IUserRegister";
+import IErrorsFormatToObject from "@/interfaces/IErrorsFormatToObject";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { register, reset } from "@/features/auth/authSlice";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
 import Button from "@/components/Global/UI/Buttons/Button/Button";
-
-type errorObject = {
-  [key: string]: string;
-};
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -21,7 +18,7 @@ const RegisterPage = () => {
   );
 
   const [registerData, setRegisterData] = useState<IUserRegister>({});
-  const [error, setError] = useState<errorObject>({});
+  const [error, setError] = useState<IErrorsFormatToObject>({});
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
@@ -34,7 +31,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isError) {
-      const errorsFormat: errorObject = {};
+      const errorsFormat: IErrorsFormatToObject = {};
       errors?.forEach((mess: string) => {
         const key = mess.split('"')[1];
         errorsFormat[key] = mess.replace(/["]/g, "");
@@ -55,60 +52,54 @@ const RegisterPage = () => {
       >
         <h1 className="text-2xl font-bold text-center">Register</h1>
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.firstName}
           labelText="First Name"
-          labelFor="firstName"
-          id="firstName"
           name="firstName"
           type="text"
-          isRequired={true}
+          required={true}
           placeholder="First Name"
+          error={error["firstName"]}
         />
-        {error["firstName"] && <p>{error["firstName"]}</p>}
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.lastName}
           labelText="Last Name"
-          labelFor="lastName"
-          id="lastName"
           name="lastName"
           type="text"
-          isRequired={true}
+          required={true}
           placeholder="Last Name"
+          error={error["lastName"]}
         />
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.email}
           labelText="Email"
-          labelFor="email"
-          id="email"
           name="email"
           type="email"
-          isRequired={true}
+          required={true}
           placeholder="Email"
+          error={error["email"]}
         />
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.companyName}
           labelText="Company Name"
-          labelFor="companyName"
-          id="companyName"
           name="companyName"
           type="text"
-          isRequired={true}
+          required={true}
           placeholder="Company Name"
+          error={error["company"]}
         />
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.password}
           labelText="Password"
-          labelFor="password"
-          id="password"
           name="password"
           type="password"
-          isRequired={true}
+          required={true}
           placeholder="Password"
+          error={error["password"]}
         />
         <Button
           label="Register"

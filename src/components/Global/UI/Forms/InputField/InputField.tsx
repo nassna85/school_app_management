@@ -1,50 +1,34 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 
-const fixedInputClass =
-  "rounded appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm";
+import IInputField from "@/interfaces/ui/IInputField";
+import { InputFieldStyle } from "@/components/Global/UI/Forms/InputField/InputField.style";
+import { InputErrorMessageStyle } from "@/components/Global/UI/Forms/InputErrorMessageStyle";
+import InputLabel from "@/components/Global/UI/Forms/InputLabel/InputLabel";
 
-interface InputFieldProps {
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  value: string | undefined;
-  labelText: string;
-  labelFor: string;
-  id: string;
-  name: string;
-  type: string;
-  isRequired: boolean;
-  placeholder: string;
-  customClass?: string | undefined;
-}
-
-const InputField: FC<InputFieldProps> = ({
-  handleChange,
+const InputField: FC<IInputField> = ({
+  onChange,
   value,
   labelText,
-  labelFor,
-  id,
   name,
   type,
-  isRequired = true,
+  required = true,
   placeholder,
-  customClass,
+  error,
 }) => {
   return (
     <div className="my-2">
-      <label htmlFor={labelFor} className="text-xs text-gray-600">
-        {labelText}
-      </label>
-      <input
-        onChange={handleChange}
+      <InputLabel labelText={labelText} htmlFor={name} />
+      <InputFieldStyle
+        onChange={onChange}
         value={value}
-        id={id}
+        id={name}
         name={name}
         type={type}
-        required={isRequired}
-        className={
-          customClass ? fixedInputClass + customClass : fixedInputClass
-        }
+        required={required}
         placeholder={placeholder}
-      />
+        error={error}
+      ></InputFieldStyle>
+      {error && <InputErrorMessageStyle>{error}</InputErrorMessageStyle>}
     </div>
   );
 };

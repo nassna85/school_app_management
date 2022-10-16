@@ -21,6 +21,8 @@ const TeacherNewForm = () => {
     data,
     setData,
     handleChange,
+    errors,
+    isSuccess,
   } = usePostFetch("teachers", "POST");
   const { saveTeacher } = useTeacher();
 
@@ -39,8 +41,6 @@ const TeacherNewForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await send(data);
-    saveTeacher(data);
-    navigate("/teachers");
   };
 
   useEffect(() => {
@@ -52,6 +52,13 @@ const TeacherNewForm = () => {
     });
     setSelectOptions(options);
   }, [classrooms?.length]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      saveTeacher(data);
+      navigate("/teachers");
+    }
+  }, [isSuccess]);
   return loading ? (
     <SpinnerLoader />
   ) : (
@@ -59,93 +66,87 @@ const TeacherNewForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.firstName}
             labelText="First Name"
-            labelFor="firstName"
-            id="firstName"
             name="firstName"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="First Name"
+            error={errors["firstName"]}
           />
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.lastName}
             labelText="Last Name"
-            labelFor="lastName"
-            id="lastName"
             name="lastName"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Last Name"
+            error={errors["lastName"]}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.email}
             labelText="Email"
-            labelFor="email"
-            id="email"
             name="email"
             type="email"
-            isRequired={true}
+            required={true}
             placeholder="Email"
+            error={errors["email"]}
           />
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.street}
             labelText="Street"
-            labelFor="street"
-            id="street"
             name="street"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Street"
+            error={errors["street"]}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.city}
             labelText="City"
-            labelFor="city"
-            id="city"
             name="city"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="City"
+            error={errors["city"]}
           />
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.country}
             labelText="Country"
-            labelFor="country"
-            id="country"
             name="country"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Country"
+            error={errors["country"]}
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.postalCode}
             labelText="Postal Code"
-            labelFor="postalCode"
-            id="postalCode"
             name="postalCode"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Postal Code"
+            error={errors["postalCode"]}
           />
           <SelectField
             name="classrooms"
             options={selectOptions}
             onChange={handleSelectChange}
             label="Classrooms"
+            error={errors["classrooms"]}
           />
         </div>
         <Button
