@@ -14,10 +14,20 @@ const usePostFetch = (url: string, method: "POST" | "PUT") => {
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<dataType>({});
+  const [originalData, setOriginalData] = useState<dataType>({});
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+    });
   }, []);
+
+  const reset = () => {
+    setData(originalData);
+  };
 
   const send = useCallback(
     async (data: object) => {
@@ -75,6 +85,8 @@ const usePostFetch = (url: string, method: "POST" | "PUT") => {
     send,
     data,
     setData,
+    reset,
+    setOriginalData,
     handleChange,
   };
 };
