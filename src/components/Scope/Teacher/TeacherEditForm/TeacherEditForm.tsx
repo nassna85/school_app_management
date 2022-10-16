@@ -1,11 +1,11 @@
 import { FC, FormEvent, useEffect, useState } from "react";
 
-import { ITeacher } from "@/interfaces/ITeacher";
+import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
 import usePostFetch from "@/hooks/usePostFetch";
 import useTeacher from "@/hooks/useTeacher";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
-import Button from "@/components/Global/UI/Buttons/Button";
+import Button from "@/components/Global/UI/Buttons/Button/Button";
 
 type TeacherEditFormProps = {
   teacher: ITeacher;
@@ -44,7 +44,7 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           label="Reset"
           isLoading={false}
           type="button"
-          variant="bg-blue-700"
+          variant="default"
           disabled={false}
           onClick={reset}
         />
@@ -131,7 +131,7 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           label="Save"
           isLoading={loading}
           type="submit"
-          variant="bg-pink-700"
+          variant="primary"
           disabled={loading}
         />
       </form>

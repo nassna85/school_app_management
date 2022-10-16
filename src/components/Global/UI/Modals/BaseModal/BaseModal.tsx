@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { createPortal } from "react-dom";
 
-import CloseButton from "@/components/Global/UI/Buttons/CloseButton";
+import CloseButton from "@/components/Global/UI/Buttons/CloseButton/CloseButton";
 import SkeletonLoader from "@/components/Global/UI/Loaders/SkeletonLoader/SkeletonLoader";
 
 type BaseModalProps = {

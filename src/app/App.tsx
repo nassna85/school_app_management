@@ -4,6 +4,7 @@ import LoginPage from "@/pages/Auth/LoginPage/LoginPage";
 import RegisterPage from "@/pages/Auth/RegisterPage/RegisterPage";
 import DashboardPage from "@/pages/DashboardPage/DashboardPage";
 import TeacherPage from "@/pages/Teacher/TeacherPage/TeacherPage";
+import TeacherNewPage from "@/pages/Teacher/TeacherNewPage/TeacherNewPage";
 import AccessDeniedPage from "@/pages/Error/AccessDeniedPage/AccessDeniedPage";
 import UnauthorizedPage from "@/pages/Error/UnauthorizedPage/UnauthorizedPage";
 import NotFound from "@/pages/Error/NotFound/NotFound";
@@ -37,6 +38,16 @@ function App() {
               <ProtectedRoute role="ROLE_MANAGER">
                 <TeacherProvider>
                   <TeacherPage />
+                </TeacherProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/teachers/new"
+            element={
+              <ProtectedRoute role="ROLE_MANAGER">
+                <TeacherProvider>
+                  <TeacherNewPage />
                 </TeacherProvider>
               </ProtectedRoute>
             }

@@ -1,13 +1,13 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import IUserRegister from "@/interfaces/IUserRegister";
+import IUserRegister from "@/interfaces/scope/auth/IUserRegister";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { register, reset } from "@/features/auth/authSlice";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
-import Button from "@/components/Global/UI/Buttons/Button";
+import Button from "@/components/Global/UI/Buttons/Button/Button";
 
 type errorObject = {
   [key: string]: string;
@@ -114,8 +114,9 @@ const RegisterPage = () => {
           label="Register"
           isLoading={isLoading}
           type="submit"
-          variant="bg-pink-700"
+          variant="primary"
           disabled={isLoading}
+          border="rounded"
         />
       </form>
     </div>

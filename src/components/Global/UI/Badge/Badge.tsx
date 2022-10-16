@@ -1,16 +1,13 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
-type BadgeProps = {
-  children: ReactNode;
-  variant: "bg-pink-200" | "bg-blue-700" | "bg-teal-500";
-  color: "text-pink-900" | "text-blue-800" | "text-teal-600";
-};
+import IBadge from "@/interfaces/ui/IBadge";
+import { BadgeStyle } from "@/components/Global/UI/Badge/Badge.style";
 
-const Badge: FC<BadgeProps> = ({ children, variant, color }) => {
+const Badge: FC<IBadge> = ({ children, variant, border }) => {
   return (
-    <span className={`${variant} ${color} py-1 px-3 rounded-full text-xs`}>
+    <BadgeStyle variant={variant} border={border}>
       {children}
-    </span>
+    </BadgeStyle>
   );
 };
 

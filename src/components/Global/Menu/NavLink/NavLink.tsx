@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import INavLink from "@/interfaces/INavLink";
+import INavLink from "@/interfaces/ui/INavLink";
 import { FC } from "react";
 
 const NavLink: FC<INavLink> = ({ path, name, children }) => {
