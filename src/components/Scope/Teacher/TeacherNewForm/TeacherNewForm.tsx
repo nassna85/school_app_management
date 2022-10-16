@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
@@ -6,7 +6,6 @@ import Button from "@/components/Global/UI/Buttons/Button/Button";
 import SelectField from "@/components/Global/UI/Forms/SelectField/SelectField";
 import SpinnerLoader from "@/components/Global/UI/Loaders/SpinnerLoader/SpinnerLoader";
 
-import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
 import { OptionsType } from "@/interfaces/ui/ISelectField";
 import { IClassrooms } from "@/interfaces/scope/classroom/IClassroom";
 import useFetch from "@/hooks/useFetch";
@@ -16,40 +15,31 @@ import useTeacher from "@/hooks/useTeacher";
 const TeacherNewForm = () => {
   const navigate = useNavigate();
   const { loading, load, items: classrooms } = useFetch("classrooms");
-  const { send, loading: postLoading } = usePostFetch("teachers", "POST");
+  const {
+    send,
+    loading: postLoading,
+    data,
+    setData,
+    handleChange,
+  } = usePostFetch("teachers", "POST");
   const { saveTeacher } = useTeacher();
 
   const [selectOptions, setSelectOptions] = useState<
     { label: string; value: string }[]
   >([]);
 
-  const [teacher, setTeacher] = useState<ITeacher>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    country: "",
-    street: "",
-    city: "",
-    postalCode: "",
-    classrooms: [],
-  });
-
   const handleSelectChange = (options: readonly OptionsType[]) => {
     const classrooms: IClassrooms[] = [];
     options.forEach((option) => {
       classrooms.push({ _id: option.value, name: option.label });
     });
-    setTeacher({ ...teacher, classrooms });
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTeacher({ ...teacher, [e.target.name]: e.target.value });
+    setData({ ...data, classrooms });
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await send(teacher);
-    saveTeacher(teacher);
+    await send(data);
+    saveTeacher(data);
     navigate("/teachers");
   };
 
@@ -70,7 +60,7 @@ const TeacherNewForm = () => {
         <div className="grid grid-cols-2 gap-4">
           <InputField
             handleChange={handleChange}
-            value={teacher.firstName}
+            value={data.firstName}
             labelText="First Name"
             labelFor="firstName"
             id="firstName"
@@ -81,7 +71,7 @@ const TeacherNewForm = () => {
           />
           <InputField
             handleChange={handleChange}
-            value={teacher.lastName}
+            value={data.lastName}
             labelText="Last Name"
             labelFor="lastName"
             id="lastName"
@@ -94,7 +84,7 @@ const TeacherNewForm = () => {
         <div className="grid grid-cols-2 gap-4">
           <InputField
             handleChange={handleChange}
-            value={teacher.email}
+            value={data.email}
             labelText="Email"
             labelFor="email"
             id="email"
@@ -105,7 +95,7 @@ const TeacherNewForm = () => {
           />
           <InputField
             handleChange={handleChange}
-            value={teacher.street}
+            value={data.street}
             labelText="Street"
             labelFor="street"
             id="street"
@@ -118,7 +108,7 @@ const TeacherNewForm = () => {
         <div className="grid grid-cols-2 gap-4">
           <InputField
             handleChange={handleChange}
-            value={teacher.city}
+            value={data.city}
             labelText="City"
             labelFor="city"
             id="city"
@@ -129,7 +119,7 @@ const TeacherNewForm = () => {
           />
           <InputField
             handleChange={handleChange}
-            value={teacher.country}
+            value={data.country}
             labelText="Country"
             labelFor="country"
             id="country"
@@ -142,7 +132,7 @@ const TeacherNewForm = () => {
         <div className="grid grid-cols-2 gap-4">
           <InputField
             handleChange={handleChange}
-            value={teacher.postalCode}
+            value={data.postalCode}
             labelText="Postal Code"
             labelFor="postalCode"
             id="postalCode"

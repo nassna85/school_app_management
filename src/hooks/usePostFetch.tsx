@@ -1,16 +1,33 @@
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { fetchAjax } from "@/utils/fetchAjax";
 import { add } from "@/features/alert/alertSlice";
 import { useAppDispatch } from "@/app/hooks";
 
+type dataType = Record<string, any>;
+
 const usePostFetch = (url: string, method: "POST" | "PUT") => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<dataType>({});
+  const [originalData, setOriginalData] = useState<dataType>({});
+
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setData((prevState) => {
+      return {
+        ...prevState,
+        [e.target.name]: e.target.value,
+      };
+    });
+  }, []);
+
+  const reset = () => {
+    setData(originalData);
+  };
 
   const send = useCallback(
     async (data: object) => {
@@ -66,6 +83,11 @@ const usePostFetch = (url: string, method: "POST" | "PUT") => {
   return {
     loading,
     send,
+    data,
+    setData,
+    reset,
+    setOriginalData,
+    handleChange,
   };
 };
 

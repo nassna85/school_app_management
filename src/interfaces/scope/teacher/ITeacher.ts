@@ -1,6 +1,6 @@
 import { IClassrooms } from "@/interfaces/scope/classroom/IClassroom";
 
-export interface ITeacher {
+export default interface ITeacher {
   _id?: string;
   firstName: string;
   lastName: string;

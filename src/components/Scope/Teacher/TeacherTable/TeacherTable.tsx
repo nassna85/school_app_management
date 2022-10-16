@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
+import ITeacher from "@/interfaces/scope/teacher/ITeacher";
 import TeacherTableRow from "@/components/Scope/Teacher/TeacherTableRow/TeacherTableRow";
 
 type TeacherTableProps = {

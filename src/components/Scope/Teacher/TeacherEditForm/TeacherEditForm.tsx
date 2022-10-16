@@ -1,6 +1,6 @@
-import { FC, FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent, useEffect } from "react";
 
-import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
+import ITeacher from "@/interfaces/scope/teacher/ITeacher";
 import usePostFetch from "@/hooks/usePostFetch";
 import useTeacher from "@/hooks/useTeacher";
 
@@ -16,26 +16,21 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
   teacher,
   onCloseDrawer,
 }) => {
-  const { send, loading } = usePostFetch(`/teachers/${teacher._id}`, "PUT");
+  const { send, loading, data, handleChange, setData, reset, setOriginalData } =
+    usePostFetch(`/teachers/${teacher._id}`, "PUT");
   const { updateTeacher } = useTeacher();
-
-  const [originalTeacher, setOriginalTeacher] = useState(teacher);
-  const [editedTeacher, setEditedTeacher] = useState(teacher);
-
-  const handleChange = (changes: object) => {
-    setEditedTeacher({ ...editedTeacher, ...changes });
-  };
-
-  const reset = () => {
-    setEditedTeacher(originalTeacher);
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await send(editedTeacher);
+    const res = await send(data);
     onCloseDrawer();
     updateTeacher(teacher._id, res);
   };
+
+  useEffect(() => {
+    setData(teacher);
+    setOriginalData(teacher);
+  }, []);
 
   return (
     <>
@@ -51,8 +46,8 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
       </div>
       <form onSubmit={handleSubmit}>
         <InputField
-          handleChange={(e) => handleChange({ firstName: e.target.value })}
-          value={editedTeacher?.firstName}
+          handleChange={handleChange}
+          value={data.firstName}
           labelText="First Name"
           labelFor="firstName"
           id="firstName"
@@ -62,8 +57,8 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           placeholder="First Name"
         />
         <InputField
-          handleChange={(e) => handleChange({ lastName: e.target.value })}
-          value={editedTeacher?.lastName}
+          handleChange={handleChange}
+          value={data.lastName}
           labelText="Last Name"
           labelFor="lastName"
           id="lastName"
@@ -73,8 +68,8 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           placeholder="Last Name"
         />
         <InputField
-          handleChange={(e) => handleChange({ email: e.target.value })}
-          value={editedTeacher?.email}
+          handleChange={handleChange}
+          value={data.email}
           labelText="Email"
           labelFor="email"
           id="email"
@@ -84,8 +79,8 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           placeholder="Email"
         />
         <InputField
-          handleChange={(e) => handleChange({ street: e.target.value })}
-          value={editedTeacher?.street}
+          handleChange={handleChange}
+          value={data.street}
           labelText="Street"
           labelFor="street"
           id="street"
@@ -95,8 +90,8 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           placeholder="Street"
         />
         <InputField
-          handleChange={(e) => handleChange({ postalCode: e.target.value })}
-          value={editedTeacher?.postalCode}
+          handleChange={handleChange}
+          value={data.postalCode}
           labelText="Postal Code"
           labelFor="postalCode"
           id="postalCode"
@@ -106,8 +101,8 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           placeholder="Postal Code"
         />
         <InputField
-          handleChange={(e) => handleChange({ city: e.target.value })}
-          value={editedTeacher?.city}
+          handleChange={handleChange}
+          value={data.city}
           labelText="City"
           labelFor="city"
           id="city"
@@ -117,8 +112,8 @@ const TeacherEditForm: FC<TeacherEditFormProps> = ({
           placeholder="City"
         />
         <InputField
-          handleChange={(e) => handleChange({ country: e.target.value })}
-          value={editedTeacher?.country}
+          handleChange={handleChange}
+          value={data.country}
           labelText="Country"
           labelFor="country"
           id="country"

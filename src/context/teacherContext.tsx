@@ -1,7 +1,7 @@
 import { createContext, FC, ReactNode, useState } from "react";
 
 import ITeachersContext from "@/interfaces/scope/teacher/ITeachersContext";
-import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
+import ITeacher from "@/interfaces/scope/teacher/ITeacher";
 
 interface TeacherProviderProps {
   children: ReactNode;

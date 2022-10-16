@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { BiShow, BiPencil, BiTrash } from "react-icons/bi";
 
-import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
+import ITeacher from "@/interfaces/scope/teacher/ITeacher";
 import ActionButton from "@/components/Global/UI/Buttons/ActionButton/ActionButton";
 import Badge from "@/components/Global/UI/Badge/Badge";
 import BaseModal from "@/components/Global/UI/Modals/BaseModal/BaseModal";
