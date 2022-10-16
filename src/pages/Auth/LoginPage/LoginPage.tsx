@@ -53,25 +53,21 @@ const LoginPage = () => {
         <h1 className="text-2xl font-bold text-center">Login</h1>
         {error && <Alert type="bg-red-500">{error}</Alert>}
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={credentials.email}
           labelText="Email"
-          labelFor="email"
-          id="email"
           name="email"
           type="email"
-          isRequired={true}
+          required={true}
           placeholder="Email"
         />
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={credentials.password}
           labelText="Password"
-          labelFor="password"
-          id="password"
           name="password"
           type="password"
-          isRequired={true}
+          required={true}
           placeholder="Password"
         />
         <Button

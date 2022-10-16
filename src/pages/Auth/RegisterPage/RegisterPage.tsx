@@ -55,59 +55,49 @@ const RegisterPage = () => {
       >
         <h1 className="text-2xl font-bold text-center">Register</h1>
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.firstName}
           labelText="First Name"
-          labelFor="firstName"
-          id="firstName"
           name="firstName"
           type="text"
-          isRequired={true}
+          required={true}
           placeholder="First Name"
         />
         {error["firstName"] && <p>{error["firstName"]}</p>}
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.lastName}
           labelText="Last Name"
-          labelFor="lastName"
-          id="lastName"
           name="lastName"
           type="text"
-          isRequired={true}
+          required={true}
           placeholder="Last Name"
         />
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.email}
           labelText="Email"
-          labelFor="email"
-          id="email"
           name="email"
           type="email"
-          isRequired={true}
+          required={true}
           placeholder="Email"
         />
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.companyName}
           labelText="Company Name"
-          labelFor="companyName"
-          id="companyName"
           name="companyName"
           type="text"
-          isRequired={true}
+          required={true}
           placeholder="Company Name"
         />
         <InputField
-          handleChange={handleChange}
+          onChange={handleChange}
           value={registerData.password}
           labelText="Password"
-          labelFor="password"
-          id="password"
           name="password"
           type="password"
-          isRequired={true}
+          required={true}
           placeholder="Password"
         />
         <Button

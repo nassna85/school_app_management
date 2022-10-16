@@ -59,86 +59,72 @@ const TeacherNewForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.firstName}
             labelText="First Name"
-            labelFor="firstName"
-            id="firstName"
             name="firstName"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="First Name"
           />
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.lastName}
             labelText="Last Name"
-            labelFor="lastName"
-            id="lastName"
             name="lastName"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Last Name"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.email}
             labelText="Email"
-            labelFor="email"
-            id="email"
             name="email"
             type="email"
-            isRequired={true}
+            required={true}
             placeholder="Email"
           />
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.street}
             labelText="Street"
-            labelFor="street"
-            id="street"
             name="street"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Street"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.city}
             labelText="City"
-            labelFor="city"
-            id="city"
             name="city"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="City"
           />
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.country}
             labelText="Country"
-            labelFor="country"
-            id="country"
             name="country"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Country"
           />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            handleChange={handleChange}
+            onChange={handleChange}
             value={data.postalCode}
             labelText="Postal Code"
-            labelFor="postalCode"
-            id="postalCode"
             name="postalCode"
             type="text"
-            isRequired={true}
+            required={true}
             placeholder="Postal Code"
           />
           <SelectField
