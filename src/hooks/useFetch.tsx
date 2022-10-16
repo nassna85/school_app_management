@@ -13,7 +13,6 @@ const useFetch = (url: string, isSingleItem = false) => {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [item, setItem] = useState<object | any>({});
-  // const [error, setError] = useState("");
 
   const load = useCallback(async () => {
     try {

@@ -8,7 +8,7 @@ import { ThemeProvider } from "styled-components";
 import "./index.css";
 import theme from "@/theme";
 
-import { store, persistor } from "@/app/store";
+import { store } from "@/app/store";
 
 import App from "@/app/App";
 
@@ -19,11 +19,11 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </PersistGate>
+        {/*<PersistGate persistor={persistor}>*/}
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+        {/*  </PersistGate>*/}
       </Provider>
     </ThemeProvider>
   </React.StrictMode>

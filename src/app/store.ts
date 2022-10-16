@@ -23,20 +23,21 @@ const authPersistConfig = {
 export const store = configureStore({
   reducer: {
     // @ts-ignore
-    auth: persistReducer(authPersistConfig, authReducer),
+    //auth: persistReducer(authPersistConfig, authReducer),
+    auth: authReducer,
     alert: alertReducer,
     user: userReducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  /*middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }),*/
   devTools: process.env.NODE_ENV !== "production",
 });
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

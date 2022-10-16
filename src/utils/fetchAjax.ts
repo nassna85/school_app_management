@@ -1,16 +1,17 @@
 import axios from "axios";
 
-import { getTokenFromLocalstorage } from "@/utils/token";
+import { getKeyFromLocalstorage } from "@/utils/token";
+import { NAME_TOKEN_IN_LOCALSTORAGE } from "@/constants";
 
 const BASE_URL = "http://localhost:5001/api/v1";
-
-const token = getTokenFromLocalstorage("persist:auth");
 
 export const fetchAjax = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${getKeyFromLocalstorage(
+      NAME_TOKEN_IN_LOCALSTORAGE
+    )}`,
   },
 });
