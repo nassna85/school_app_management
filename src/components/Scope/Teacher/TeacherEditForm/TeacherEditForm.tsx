@@ -1,6 +1,6 @@
-import { FC, FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 
-import { ITeacher } from "@/interfaces/scope/teacher/ITeacher";
+import ITeacher from "@/interfaces/scope/teacher/ITeacher";
 import usePostFetch from "@/hooks/usePostFetch";
 import useTeacher from "@/hooks/useTeacher";
 
