@@ -1,49 +1,35 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import IUserRegister from "@/interfaces/scope/auth/IUserRegister";
-import IErrorsFormatToObject from "@/interfaces/IErrorsFormatToObject";
-
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { register, reset } from "@/features/auth/authSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
 import Button from "@/components/Global/UI/Buttons/Button/Button";
+import usePostFetch from "@/hooks/usePostFetch";
+import { add } from "@/features/alert/alertSlice";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isLoading, isError, isSuccess, errors } = useAppSelector(
-    (state) => state.auth
+  const { send, errors, isSuccess, data, handleChange, loading } = usePostFetch(
+    "/users/register",
+    "POST"
   );
 
-  const [registerData, setRegisterData] = useState<IUserRegister>({});
-  const [error, setError] = useState<IErrorsFormatToObject>({});
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(register(registerData));
+    await send(data);
   };
 
   useEffect(() => {
-    if (isError) {
-      const errorsFormat: IErrorsFormatToObject = {};
-      errors?.forEach((mess: string) => {
-        const key = mess.split('"')[1];
-        errorsFormat[key] = mess.replace(/["]/g, "");
-      });
-      setError(errorsFormat);
-      return;
-    }
     if (isSuccess) {
-      dispatch(reset());
-      return navigate("/login");
+      // TODO Add Notification success
+      dispatch(
+        add({ type: "success", message: "Account created successfully" })
+      );
+      navigate("/login");
     }
-  }, [isError, isSuccess, errors]);
+  }, [isSuccess]);
   return (
     <div className="flex justify-center items-center h-screen">
       <form
@@ -53,60 +39,60 @@ const RegisterPage = () => {
         <h1 className="text-2xl font-bold text-center">Register</h1>
         <InputField
           onChange={handleChange}
-          value={registerData.firstName}
+          value={data.firstName}
           labelText="First Name"
           name="firstName"
           type="text"
           required={true}
           placeholder="First Name"
-          error={error["firstName"]}
+          error={errors["firstName"]}
         />
         <InputField
           onChange={handleChange}
-          value={registerData.lastName}
+          value={data.lastName}
           labelText="Last Name"
           name="lastName"
           type="text"
           required={true}
           placeholder="Last Name"
-          error={error["lastName"]}
+          error={errors["lastName"]}
         />
         <InputField
           onChange={handleChange}
-          value={registerData.email}
+          value={data.email}
           labelText="Email"
           name="email"
           type="email"
           required={true}
           placeholder="Email"
-          error={error["email"]}
+          error={errors["email"]}
         />
         <InputField
           onChange={handleChange}
-          value={registerData.companyName}
+          value={data.companyName}
           labelText="Company Name"
           name="companyName"
           type="text"
           required={true}
           placeholder="Company Name"
-          error={error["company"]}
+          error={errors["company"]}
         />
         <InputField
           onChange={handleChange}
-          value={registerData.password}
+          value={data.password}
           labelText="Password"
           name="password"
           type="password"
           required={true}
           placeholder="Password"
-          error={error["password"]}
+          error={errors["password"]}
         />
         <Button
           label="Register"
-          isLoading={isLoading}
+          isLoading={loading}
           type="submit"
           variant="primary"
-          disabled={isLoading}
+          disabled={loading}
           border="rounded"
         />
       </form>

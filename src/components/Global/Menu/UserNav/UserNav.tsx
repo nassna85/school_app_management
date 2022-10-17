@@ -3,7 +3,7 @@ import { FiUser, FiStar } from "react-icons/fi";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { resetAuthorizationAxios } from "@/utils/axios";
-import { logout } from "@/features/auth/authSlice";
+// import { logout } from "@/features/auth/authSlice";
 
 import Button from "@/components/Global/UI/Buttons/Button/Button";
 import { removeKeyFromLocalstorage } from "@/utils/token";
@@ -18,7 +18,7 @@ const UserNav = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
+    // dispatch(logout());
     resetAuthorizationAxios();
     removeKeyFromLocalstorage(NAME_TOKEN_IN_LOCALSTORAGE);
     removeKeyFromLocalstorage(NAME_ROLES_IN_LOCALSTORAGE);

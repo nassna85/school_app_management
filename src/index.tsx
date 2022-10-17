@@ -7,6 +7,7 @@ import { ThemeProvider } from "styled-components";
 import "./index.css";
 import theme from "@/theme";
 
+import { AuthContextProvider } from "@/context/authContext";
 import { store } from "@/app/store";
 
 import App from "@/app/App";
@@ -18,9 +19,11 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <AuthContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthContextProvider>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>
