@@ -1,20 +1,21 @@
-import { Navigate } from "react-router-dom";
 import { FC } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
 import IProtectedRoute from "@/interfaces/IProtectedRoute";
-import { getKeyFromLocalstorage } from "@/utils/token";
-import {
-  NAME_ROLES_IN_LOCALSTORAGE,
-  NAME_TOKEN_IN_LOCALSTORAGE,
-} from "@/constants";
+import useAuth from "@/hooks/useAuth";
 
 const ProtectedRoute: FC<IProtectedRoute> = ({ children, role }) => {
-  const token = getKeyFromLocalstorage(NAME_TOKEN_IN_LOCALSTORAGE);
-  const roles = getKeyFromLocalstorage(NAME_ROLES_IN_LOCALSTORAGE);
+  // @ts-ignore
+  const { auth } = useAuth();
+  const location = useLocation();
 
-  if (!token) return <Navigate to="/login" replace />;
-  if (!roles.includes(role)) return <Navigate to="/access-denied" replace />;
-  return children;
+  return auth?.roles?.includes(role) ? (
+    children
+  ) : auth ? (
+    <Navigate to="access-denied" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
+  );
 };
 
 export default ProtectedRoute;

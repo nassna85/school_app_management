@@ -15,6 +15,11 @@ class AuthService {
     const res = await fetchAjax.post(`${this.path}login`, credentials);
     return res?.data;
   }
+
+  static async logout() {
+    const res = await fetchAjax.get(`${this.path}logout`);
+    return res?.data;
+  }
 }
 
 export default AuthService;

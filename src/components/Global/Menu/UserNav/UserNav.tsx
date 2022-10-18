@@ -1,28 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { FiUser, FiStar } from "react-icons/fi";
 
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { resetAuthorizationAxios } from "@/utils/axios";
-// import { logout } from "@/features/auth/authSlice";
+import { useAppSelector } from "@/app/hooks";
+// import { resetAuthorizationAxios } from "@/utils/axios";
+import AuthService from "@/services/AuthService";
+import useAuth from "@/hooks/useAuth";
 
 import Button from "@/components/Global/UI/Buttons/Button/Button";
-import { removeKeyFromLocalstorage } from "@/utils/token";
-import {
-  NAME_ROLES_IN_LOCALSTORAGE,
-  NAME_TOKEN_IN_LOCALSTORAGE,
-} from "@/constants";
 
 const UserNav = () => {
   const navigate = useNavigate();
+  // @ts-ignore
+  const { setAuth } = useAuth();
   const { me } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     // dispatch(logout());
-    resetAuthorizationAxios();
-    removeKeyFromLocalstorage(NAME_TOKEN_IN_LOCALSTORAGE);
-    removeKeyFromLocalstorage(NAME_ROLES_IN_LOCALSTORAGE);
-    navigate("/login");
+    try {
+      await AuthService.logout();
+      setAuth({});
+      // resetAuthorizationAxios();
+      navigate("/login");
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <div className="mb-5">

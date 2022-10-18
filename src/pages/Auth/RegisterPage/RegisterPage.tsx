@@ -23,7 +23,6 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      // TODO Add Notification success
       dispatch(
         add({ type: "success", message: "Account created successfully" })
       );

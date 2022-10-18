@@ -18,11 +18,14 @@ function App() {
   return (
     <>
       <Routes>
+        {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/access-denied" element={<AccessDeniedPage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
         <Route path="/not-found" element={<NotFound />} />
+
+        {/* Private routes */}
         <Route element={<AppLayout />}>
           <Route
             path="/"
@@ -53,6 +56,8 @@ function App() {
             }
           />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Notification />
     </>

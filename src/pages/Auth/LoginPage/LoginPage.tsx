@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
 import Button from "@/components/Global/UI/Buttons/Button/Button";
@@ -16,6 +16,8 @@ const LoginPage = () => {
   // @ts-ignore
   const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const dispatch = useAppDispatch();
 
   const [credentials, setCredentials] = useState<ILoginCredentials>({});
@@ -36,7 +38,8 @@ const LoginPage = () => {
       dispatch(
         add({ type: "success", message: "Vous êtes désormais connecté(e)" })
       );
-      navigate("/");
+      setCredentials({ email: "", password: "" });
+      navigate(from, { replace: true });
     } catch (e) {
       if (axios.isAxiosError(e)) {
         setError(e?.response?.data?.message || "Error Occured");

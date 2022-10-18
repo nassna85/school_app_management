@@ -11,12 +11,10 @@ const AppLayout: FC = () => {
   const { me } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(getMe());
-  }, []);
-  return !me ? (
-    <SpinnerLoader />
-  ) : (
+  }, []);*/
+  return (
     <div className="flex">
       <Sidebar />
       <main className="p-5 grow bg-gray-100">
