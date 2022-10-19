@@ -1,5 +1,6 @@
-import { fetchAjax } from "@/utils/fetchAjax";
 import useAuth from "@/hooks/useAuth";
+import AuthService from "@/services/AuthService";
+import IAuth from "@/interfaces/scope/auth/IAuth";
 
 const useRefreshToken = () => {
   // @ts-ignore
@@ -7,18 +8,23 @@ const useRefreshToken = () => {
 
   const refresh = async () => {
     try {
-      const res = await fetchAjax.get("/users/refresh", {
-        withCredentials: true,
+      const res = await AuthService.refreshToken();
+      setAuth((prevState: IAuth) => {
+        console.log(prevState);
+        console.log(res);
+        return {
+          ...prevState,
+          accessToken: res?.accessToken,
+          roles: res?.roles,
+        };
       });
-      // https://www.youtube.com/watch?v=nI8PYZNFtac&list=PL0Zuz27SZ-6PRCpm9clX0WiBEMB70FWwd&index=4
-      // 16min18
-      // TODO Create refresh route in server side
+      return res;
     } catch (e) {
       console.log("useRefreshHooks", e);
     }
   };
 
-  return <div></div>;
+  return refresh;
 };
 
 export default useRefreshToken;

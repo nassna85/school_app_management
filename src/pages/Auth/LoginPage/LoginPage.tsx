@@ -42,6 +42,7 @@ const LoginPage = () => {
       navigate(from, { replace: true });
     } catch (e) {
       if (axios.isAxiosError(e)) {
+        console.log(e);
         setError(e?.response?.data?.message || "Error Occured");
       } else {
         setError("Something wrong");

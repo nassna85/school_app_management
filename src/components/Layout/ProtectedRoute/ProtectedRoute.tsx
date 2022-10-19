@@ -11,7 +11,7 @@ const ProtectedRoute: FC<IProtectedRoute> = ({ children, role }) => {
 
   return auth?.roles?.includes(role) ? (
     children
-  ) : auth ? (
+  ) : auth?.accessToken ? (
     <Navigate to="access-denied" state={{ from: location }} replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />

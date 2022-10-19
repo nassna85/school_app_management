@@ -2,15 +2,21 @@ import axios from "axios";
 import { ChangeEvent, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { fetchAjax } from "@/utils/fetchAjax";
 import { add } from "@/features/alert/alertSlice";
 import { useAppDispatch } from "@/app/hooks";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 
 import IErrorsFormatToObject from "@/interfaces/IErrorsFormatToObject";
+import { fetchAjax } from "@/utils/fetchAjax";
 
 type dataType = Record<string, any>;
 
-const usePostFetch = (url: string, method: "POST" | "PUT") => {
+const usePostFetch = (
+  url: string,
+  method: "POST" | "PUT",
+  status: "private" | "public" = "private"
+) => {
+  const axiosPrivate = useAxiosPrivate();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -38,9 +44,10 @@ const usePostFetch = (url: string, method: "POST" | "PUT") => {
       setLoading(true);
       setErrors({});
       setIsSuccess(false);
+      const instanceAxios = status === "private" ? axiosPrivate : fetchAjax;
       try {
         if (method === "POST") {
-          const res = await fetchAjax.post(url, data);
+          const res = await instanceAxios.post(url, data);
           dispatch(
             add({ type: "success", message: "Item added successfully" })
           );
@@ -48,7 +55,7 @@ const usePostFetch = (url: string, method: "POST" | "PUT") => {
           return res?.data?.data;
         }
         if (method === "PUT") {
-          const res = await fetchAjax.put(url, data);
+          const res = await instanceAxios.put(url, data);
           dispatch(
             add({ type: "success", message: "Item edited successfully" })
           );

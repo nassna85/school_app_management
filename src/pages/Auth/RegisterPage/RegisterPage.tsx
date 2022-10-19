@@ -13,7 +13,8 @@ const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const { send, errors, isSuccess, data, handleChange, loading } = usePostFetch(
     "/users/register",
-    "POST"
+    "POST",
+    "public"
   );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
