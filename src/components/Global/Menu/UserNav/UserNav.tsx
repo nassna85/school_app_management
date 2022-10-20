@@ -2,24 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { FiUser, FiStar } from "react-icons/fi";
 
 import { useAppSelector } from "@/app/hooks";
-// import { resetAuthorizationAxios } from "@/utils/axios";
-import AuthService from "@/services/AuthService";
-import useAuth from "@/hooks/useAuth";
+import useLogout from "@/hooks/useLogout";
 
 import Button from "@/components/Global/UI/Buttons/Button/Button";
 
 const UserNav = () => {
   const navigate = useNavigate();
-  // @ts-ignore
-  const { setAuth } = useAuth();
+  const { logout, isLoading } = useLogout();
   const { me } = useAppSelector((state) => state.user);
 
   const handleLogout = async () => {
-    // dispatch(logout());
     try {
-      await AuthService.logout();
-      setAuth({});
-      // resetAuthorizationAxios();
+      await logout();
       navigate("/login");
     } catch (e) {
       console.log(e);
@@ -42,11 +36,11 @@ const UserNav = () => {
       )}
       <Button
         label="Logout"
-        isLoading={false}
+        isLoading={isLoading}
         type="button"
         variant="primary"
         border="rounded"
-        disabled={false}
+        disabled={isLoading}
         onClick={handleLogout}
       />
     </div>

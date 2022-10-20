@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
@@ -51,6 +51,7 @@ const LoginPage = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <form

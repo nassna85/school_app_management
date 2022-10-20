@@ -6,7 +6,6 @@ export const fetchAjax = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json",
   },
 });
 
@@ -14,7 +13,6 @@ export const fetchAjaxPrivate = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json",
   },
   withCredentials: true,
 });

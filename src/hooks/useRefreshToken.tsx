@@ -6,25 +6,21 @@ const useRefreshToken = () => {
   // @ts-ignore
   const { setAuth } = useAuth();
 
-  const refresh = async () => {
+  return async () => {
     try {
       const res = await AuthService.refreshToken();
       setAuth((prevState: IAuth) => {
-        console.log(prevState);
-        console.log(res);
         return {
           ...prevState,
           accessToken: res?.accessToken,
           roles: res?.roles,
         };
       });
-      return res;
+      return res?.accessToken;
     } catch (e) {
       console.log("useRefreshHooks", e);
     }
   };
-
-  return refresh;
 };
 
 export default useRefreshToken;

@@ -11,6 +11,7 @@ import NotFound from "@/pages/Error/NotFound/NotFound";
 
 import AppLayout from "@/components/Layout/AppLayout/AppLayout";
 import ProtectedRoute from "@/components/Layout/ProtectedRoute/ProtectedRoute";
+import PersistLogin from "@/components/Layout/PersistLogin/PersistLogin";
 import TeacherProvider from "@/context/teacherContext";
 import Notification from "@/components/Global/UI/Notification/Notification";
 
@@ -26,35 +27,37 @@ function App() {
         <Route path="/not-found" element={<NotFound />} />
 
         {/* Private routes */}
-        <Route element={<AppLayout />}>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute role="ROLE_MANAGER">
-                <DashboardPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/teachers"
-            element={
-              <ProtectedRoute role="ROLE_MANAGER">
-                <TeacherProvider>
-                  <TeacherPage />
-                </TeacherProvider>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/teachers/new"
-            element={
-              <ProtectedRoute role="ROLE_MANAGER">
-                <TeacherProvider>
-                  <TeacherNewPage />
-                </TeacherProvider>
-              </ProtectedRoute>
-            }
-          />
+        <Route element={<PersistLogin />}>
+          <Route element={<AppLayout />}>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute role="ROLE_MANAGER">
+                  <DashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/teachers"
+              element={
+                <ProtectedRoute role="ROLE_MANAGER">
+                  <TeacherProvider>
+                    <TeacherPage />
+                  </TeacherProvider>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/teachers/new"
+              element={
+                <ProtectedRoute role="ROLE_MANAGER">
+                  <TeacherProvider>
+                    <TeacherNewPage />
+                  </TeacherProvider>
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />
