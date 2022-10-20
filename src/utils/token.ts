@@ -3,12 +3,10 @@
  * @param {string} storageKey
  * @returns {string}
  */
-export const getTokenFromLocalstorage = (storageKey: string) => {
-  const persistAuth = localStorage.getItem(storageKey) || "";
-  if (persistAuth) {
-    const parsedPersistAuth = JSON.parse(persistAuth);
-    return JSON.parse(parsedPersistAuth?.user)?.token || "";
-  } else {
-    return "";
-  }
+export const getKeyFromLocalstorage = (storageKey: string) => {
+  return localStorage.getItem(storageKey) || "";
+};
+
+export const removeKeyFromLocalstorage = (storageKey: string) => {
+  return localStorage.removeItem(storageKey);
 };

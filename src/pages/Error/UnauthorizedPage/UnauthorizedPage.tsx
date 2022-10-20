@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@/app/hooks";
-import { logout } from "@/features/auth/authSlice";
+// import { logout } from "@/features/auth/authSlice";
 import { resetAuthorizationAxios } from "@/utils/axios";
+import { removeKeyFromLocalstorage } from "@/utils/token";
+import { NAME_TOKEN_IN_LOCALSTORAGE } from "@/constants";
 
 const UnauthorizedPage = () => {
   const navigate = useNavigate();
@@ -11,8 +13,9 @@ const UnauthorizedPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(logout());
+      // dispatch(logout());
       resetAuthorizationAxios();
+      removeKeyFromLocalstorage(NAME_TOKEN_IN_LOCALSTORAGE);
       return navigate("/login");
     }, 5000);
   }, [dispatch, navigate]);

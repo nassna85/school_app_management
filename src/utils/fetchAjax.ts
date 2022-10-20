@@ -1,16 +1,18 @@
 import axios from "axios";
 
-import { getTokenFromLocalstorage } from "@/utils/token";
-
-const BASE_URL = "http://localhost:5001/api/v1";
-
-const token = getTokenFromLocalstorage("persist:auth");
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const fetchAjax = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: `Bearer ${token}`,
   },
+});
+
+export const fetchAjaxPrivate = axios.create({
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
 });

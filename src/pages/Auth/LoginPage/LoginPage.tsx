@@ -1,49 +1,57 @@
+import axios from "axios";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import InputField from "@/components/Global/UI/Forms/InputField/InputField";
 import Button from "@/components/Global/UI/Buttons/Button/Button";
 import Alert from "@/components/Global/UI/Alert/Alert";
 
-import { useAppSelector, useAppDispatch } from "@/app/hooks";
+import { useAppDispatch } from "@/app/hooks";
+import useAuth from "@/hooks/useAuth";
 import ILoginCredentials from "@/interfaces/scope/auth/ILoginCredentials";
-import { login, reset } from "@/features/auth/authSlice";
 import { add } from "@/features/alert/alertSlice";
+import AuthService from "@/services/AuthService";
 
 const LoginPage = () => {
+  // @ts-ignore
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const dispatch = useAppDispatch();
-  const { isSuccess, isLoading, isError, user, errorMessage } = useAppSelector(
-    (state) => state.auth
-  );
 
   const [credentials, setCredentials] = useState<ILoginCredentials>({});
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    setError("");
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login(credentials));
-  };
-
-  useEffect(() => {
-    if (isError && errorMessage) {
-      setError(errorMessage);
-      return;
-    }
-    if (isSuccess) {
-      dispatch(reset());
+    setError("");
+    setIsLoading(true);
+    try {
+      const res = await AuthService.login(credentials);
+      setAuth({ accessToken: res?.accessToken, roles: res?.roles });
       dispatch(
         add({ type: "success", message: "Vous êtes désormais connecté(e)" })
       );
-      //return navigate("/");
-      window.location.href = "/";
+      setCredentials({ email: "", password: "" });
+      navigate(from, { replace: true });
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        console.log(e);
+        setError(e?.response?.data?.message || "Error Occured");
+      } else {
+        setError("Something wrong");
+      }
+    } finally {
+      setIsLoading(false);
     }
-  }, [isSuccess, isError, user, errorMessage]);
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <form

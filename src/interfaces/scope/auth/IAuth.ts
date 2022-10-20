@@ -1,3 +1,4 @@
+/*
 export default interface IAuth {
   user: {
     token: string;
@@ -8,4 +9,9 @@ export default interface IAuth {
   isLoading: boolean;
   errors: string[] | null;
   errorMessage?: string;
+}
+*/
+export default interface IAuth {
+  accessToken: "";
+  roles: string[];
 }

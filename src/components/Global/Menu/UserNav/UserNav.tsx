@@ -1,24 +1,23 @@
+import { useNavigate } from "react-router-dom";
 import { FiUser, FiStar } from "react-icons/fi";
 
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { resetAuthorizationAxios } from "@/utils/axios";
-import { logout } from "@/features/auth/authSlice";
+import { useAppSelector } from "@/app/hooks";
+import useLogout from "@/hooks/useLogout";
 
 import Button from "@/components/Global/UI/Buttons/Button/Button";
-// import { persistor } from "@/app/store";
 
 const UserNav = () => {
+  const navigate = useNavigate();
+  const { logout, isLoading } = useLogout();
   const { me } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    resetAuthorizationAxios();
-    /*persistor.pause();
-    persistor.flush().then(() => {
-      return persistor.purge();
-    });*/
-    window.location.href = "/login";
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <div className="mb-5">
@@ -37,11 +36,11 @@ const UserNav = () => {
       )}
       <Button
         label="Logout"
-        isLoading={false}
+        isLoading={isLoading}
         type="button"
         variant="primary"
         border="rounded"
-        disabled={false}
+        disabled={isLoading}
         onClick={handleLogout}
       />
     </div>

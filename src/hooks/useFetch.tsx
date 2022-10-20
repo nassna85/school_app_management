@@ -2,23 +2,23 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { fetchAjax } from "@/utils/fetchAjax";
 import { useAppDispatch } from "@/app/hooks";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import { add } from "@/features/alert/alertSlice";
 
 const useFetch = (url: string, isSingleItem = false) => {
+  const axiosPrivate = useAxiosPrivate();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [item, setItem] = useState<object | any>({});
-  // const [error, setError] = useState("");
 
   const load = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetchAjax(url);
+      const res = await axiosPrivate(url);
       if (res?.data?.status === "success") {
         if (isSingleItem) {
           setItem(res?.data?.data);
