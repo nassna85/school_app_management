@@ -38,10 +38,7 @@ const TeacherTableRow: FC<TeacherTableItemProps> = ({ teacher }) => {
   };
   return (
     <>
-      <tr
-        key={teacher._id}
-        className="border-b border-gray-200 hover:bg-gray-100"
-      >
+      <tr className="border-b border-gray-200 hover:bg-gray-100">
         <td className="py-3 px-6 text-left whitespace-nowrap">
           <div className="flex items-center">
             <span className="font-medium">{teacher._id}</span>

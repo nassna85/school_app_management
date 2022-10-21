@@ -13,16 +13,18 @@ const Button: FC<IButton> = ({
   border,
 }) => {
   return (
-    <ButtonStyle
-      type={type}
-      variant={variant}
-      disabled={disabled}
-      onClick={onClick}
-      label={isLoading ? "Loading..." : label}
-      border={border}
-    >
-      {label}
-    </ButtonStyle>
+    <div className="mt-2">
+      <ButtonStyle
+        type={type}
+        variant={variant}
+        disabled={disabled}
+        onClick={onClick}
+        label={isLoading ? "Loading..." : label}
+        border={border}
+      >
+        {label}
+      </ButtonStyle>
+    </div>
   );
 };
 
