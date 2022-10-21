@@ -5,6 +5,8 @@ import RegisterPage from "@/pages/Auth/RegisterPage/RegisterPage";
 import DashboardPage from "@/pages/DashboardPage/DashboardPage";
 import TeacherPage from "@/pages/Teacher/TeacherPage/TeacherPage";
 import TeacherNewPage from "@/pages/Teacher/TeacherNewPage/TeacherNewPage";
+import ClassroomPage from "@/pages/Classroom/ClassroomPage/ClassroomPage";
+import ClassroomNewPage from "@/pages/Classroom/ClassroomNewPage/ClassroomNewPage";
 import AccessDeniedPage from "@/pages/Error/AccessDeniedPage/AccessDeniedPage";
 import UnauthorizedPage from "@/pages/Error/UnauthorizedPage/UnauthorizedPage";
 import NotFound from "@/pages/Error/NotFound/NotFound";
@@ -54,6 +56,22 @@ function App() {
                   <TeacherProvider>
                     <TeacherNewPage />
                   </TeacherProvider>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/classrooms"
+              element={
+                <ProtectedRoute role="ROLE_MANAGER">
+                  <ClassroomPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/classrooms/new"
+              element={
+                <ProtectedRoute role="ROLE_MANAGER">
+                  <ClassroomNewPage />
                 </ProtectedRoute>
               }
             />

@@ -3,6 +3,7 @@ import {
   MdAccessibilityNew,
   MdSupervisedUserCircle,
 } from "react-icons/md";
+import { FaSchool } from "react-icons/fa";
 
 export const data = [
   {
@@ -14,6 +15,11 @@ export const data = [
     name: "Teachers",
     path: "/teachers",
     icon: <MdSupervisedUserCircle />,
+  },
+  {
+    name: "Classrooms",
+    path: "/classrooms",
+    icon: <FaSchool />,
   },
   {
     name: "Students",
