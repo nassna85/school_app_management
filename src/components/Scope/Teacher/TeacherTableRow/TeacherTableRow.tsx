@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { BiShow, BiPencil, BiTrash } from "react-icons/bi";
 
 import ITeacher from "@/interfaces/scope/teacher/ITeacher";
@@ -16,18 +16,29 @@ type TeacherTableItemProps = {
 
 const TeacherTableRow: FC<TeacherTableItemProps> = ({ teacher }) => {
   const { loading, load, item } = useFetch(`/teachers/${teacher._id}`, true);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const openModalHandler = () => {
-    setIsModalOpen(true);
-    load();
-  };
+  const openModalHandler = useMemo(
+    function () {
+      return function () {
+        setIsModalOpen((prevState) => !prevState);
+        load();
+      };
+    },
+    [isModalOpen]
+  );
 
-  const openDrawerHandler = () => {
-    setIsDrawerOpen(true);
-    load();
-  };
+  const openDrawerHandler = useMemo(
+    function () {
+      return function () {
+        setIsDrawerOpen((prevState) => !prevState);
+        load();
+      };
+    },
+    [isDrawerOpen]
+  );
 
   const closeModalHandler = () => {
     setIsModalOpen(false);

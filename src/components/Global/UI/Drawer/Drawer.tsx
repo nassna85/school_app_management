@@ -1,4 +1,4 @@
-import { ReactNode, FC } from "react";
+import React, { ReactNode, FC } from "react";
 import { createPortal } from "react-dom";
 
 import CloseButton from "@/components/Global/UI/Buttons/CloseButton/CloseButton";
@@ -11,12 +11,12 @@ type DrawerProps = {
   isLoading: boolean;
 };
 
-const Drawer: FC<DrawerProps> = ({
+const Drawer: FC<DrawerProps> = React.memo(function ({
   isOpen,
   children,
   onCloseDrawer,
   isLoading,
-}) => {
+}) {
   return createPortal(
     <div
       className={
@@ -50,6 +50,6 @@ const Drawer: FC<DrawerProps> = ({
     </div>,
     document.body
   );
-};
+});
 
 export default Drawer;

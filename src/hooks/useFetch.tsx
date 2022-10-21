@@ -19,7 +19,7 @@ const useFetch = (url: string, isSingleItem = false) => {
     try {
       setLoading(true);
       const res = await axiosPrivate(url);
-      if (res?.data?.status === "success") {
+      if (res?.data?.status === "success" || "SUCCESS") {
         if (isSingleItem) {
           setItem(res?.data?.data);
         } else {

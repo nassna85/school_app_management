@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 import CloseButton from "@/components/Global/UI/Buttons/CloseButton/CloseButton";
@@ -11,12 +11,12 @@ type BaseModalProps = {
   isLoading: boolean;
 };
 
-const BaseModal: FC<BaseModalProps> = ({
+const BaseModal: FC<BaseModalProps> = React.memo(function ({
   children,
   isOpen,
   onClose,
   isLoading,
-}) => {
+}) {
   return createPortal(
     isOpen ? (
       <div
@@ -42,6 +42,6 @@ const BaseModal: FC<BaseModalProps> = ({
     ) : null,
     document.body
   );
-};
+});
 
 export default BaseModal;
